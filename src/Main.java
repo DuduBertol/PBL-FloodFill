@@ -1,4 +1,4 @@
-import MyArrayList.MyArrayList;
+import Structures.MyArrayList;
 
 public class Main {
     public static void main(String[] args) {
