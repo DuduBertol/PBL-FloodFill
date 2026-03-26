@@ -26,7 +26,7 @@ public class Node<E> {
     }
 
     public E getElement(){
-        return element;
+        return this.element;
     }
 
     public void setElement(E e){

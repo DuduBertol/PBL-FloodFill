@@ -1,19 +1,31 @@
-import Structures.*;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        BufferedImage image = ImageIO.read(new File("assets/jake.png"));
 
-        System.out.printf("Hello and welcome! \n");
+        ImagePanel imagePanel = new ImagePanel(image);
 
-        MyArrayList<Integer> myArrayList = new MyArrayList<Integer>();
+        JFrame frame = new JFrame("Flood Fill");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setSize(image.getWidth(), image.getHeight());
+        frame.add(imagePanel);
+        frame.setVisible(true);
 
-        Stack<String> myStack = new Stack<String>();
+        Thread.sleep(300);
 
-        myStack.push("Dudu");
-//        myStack.push("Carla");
-        myStack.pop();
-
-//        System.out.println(myStack.top().getElement());
-        System.out.println(myStack.size());
+        FloodFill f = new FloodFill(
+                image,
+                imagePanel,
+                100,
+                120
+        );
+        f.stackFill();
+//        f.queueFill();
     }
 }

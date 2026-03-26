@@ -2,12 +2,17 @@ package Structures;
 
 public class Stack<E> {
 
-    private Node top;
+    private Node<E> top;
     private int size;
 
     public Stack(){
         this.top = null;
         this.size = 0;
+    }
+
+    public Stack(E element){
+        top = new Node<>(element);
+        size = 1;
     }
 
     //adiciona ao fim da pilha
@@ -22,19 +27,21 @@ public class Stack<E> {
             newNode.setPrevious(top);
             top = newNode;
         }
+
+        size++;
     }
 
-    public void pop(){
-//        E elementRemoved = (E) top.getElement();
-        if (size() > 1){
-//            Node previous = top.getPrevious();
-            top = top.getPrevious();
-//            top.setNext(null);
-        } else if (size == 1){
-            top = null;
+    public E pop(){
+        if (isEmpty()) {
+            throw new RuntimeException();
         }
-//        return elementRemoved;
+
+        E elementRemoved = top.getElement();
+        top = top.getPrevious();
+        size--;
+        return elementRemoved;
     }
+
 
     public Node top(){
         return top;
@@ -61,9 +68,7 @@ public class Stack<E> {
     }
 
     public void clear(E e){
-        while (top != null){
-            pop();
-        }
+        top = null;
     }
 
 //    public Node[] toArray(){

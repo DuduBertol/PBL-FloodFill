@@ -1,23 +1,23 @@
 package Structures;
 
-public class Fila {
+public class Queue<E> {
 
-    private MyArrayList<Point> elementos;
+    private MyArrayList<E> elementos;
 
-    public Fila() {
+    public Queue() {
         elementos = new MyArrayList<>();
     }
 
-    public void enqueue(Point valor) {
+    public void enqueue(E valor) {
         elementos.add(valor);
     }
 
-    public Point dequeue() {
+    public E dequeue() {
         if (isEmpty()) {
-            throw new RuntimeException("Fila vazia");
+            throw new RuntimeException("Empty queue");
         }
 
-        Point valor = elementos.get(0);
+        E valor = elementos.get(0);
         elementos.removeAt(0);
         return valor;
     }
