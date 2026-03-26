@@ -23,9 +23,9 @@ public class Main {
                 image,
                 imagePanel,
                 100,
-                120
+                125
         );
-        f.stackFill();
-//        f.queueFill();
+//        f.stackFill();
+        f.queueFill();
     }
 }

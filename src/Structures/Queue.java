@@ -2,27 +2,70 @@ package Structures;
 
 public class Queue<E> {
 
-    private MyArrayList<E> elementos;
+    private Node<E> first;
+    private Node<E> top;
+    private int size;
+
+    public Queue(Node<E> top, int size) {
+        this.first = top;
+        this.top = top;
+        this.size = size;
+    }
 
     public Queue() {
-        elementos = new MyArrayList<>();
+        top = first = null;
+        size = 0;
     }
 
-    public void enqueue(E valor) {
-        elementos.add(valor);
-    }
+    public void enqueue(E element) {
+        Node<E> node = new Node<>(element);
 
-    public E dequeue() {
         if (isEmpty()) {
-            throw new RuntimeException("Empty queue");
+            first = node;
+            top = node;
+            size++;
+
+        } else {
+            first.setNext(node);
+            first = node;
+            size++;
+        }
+    }
+
+    public E dequeue(){
+        if (isEmpty()){
+            System.out.println("Queue is empty");
+            throw new RuntimeException();
         }
 
-        E valor = elementos.get(0);
-        elementos.removeAt(0);
-        return valor;
+        E element = top.getElement();
+        top = top.getNext();
+
+        if (top == null){
+            first = null;
+        }
+        size--;
+        return element;
     }
 
-    public boolean isEmpty() {
-        return elementos.size() == 0;
+    public Node front(){
+        return top;
     }
+
+    public boolean isEmpty(){
+        if (first == null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int size(){ return size;}
+
+    public void clear(E e){
+        first = null;
+    }
+
+    //Carla - faz o toString() e o toArray() pls
+
 }
