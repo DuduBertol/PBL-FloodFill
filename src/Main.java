@@ -1,8 +1,12 @@
+import Structures.Queue;
+import Structures.Stack;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -25,7 +29,9 @@ public class Main {
                 100,
                 125
         );
-//        f.stackFill();
-        f.queueFill();
+        f.stackFill();
+//        f.queueFill();
+
+
     }
 }

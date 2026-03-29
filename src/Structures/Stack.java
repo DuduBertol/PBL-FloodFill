@@ -1,5 +1,7 @@
 package Structures;
 
+import java.util.Arrays;
+
 public class Stack<E> {
 
     private Node<E> top;
@@ -10,16 +12,13 @@ public class Stack<E> {
         this.size = 0;
     }
 
-    public Stack(E element){
-        top = new Node<>(element);
-        size = 1;
-    }
-
     //adiciona ao fim da pilha
     //referenciar o previous
     //colocar o next
+
+    //coloca o elemento no final da fila
     public void push(E newElement){
-        Node newNode = new Node(newElement);
+        Node<E> newNode = new Node<>(newElement);
         if (isEmpty()){
             top = newNode;
         } else {
@@ -27,24 +26,33 @@ public class Stack<E> {
             newNode.setPrevious(top);
             top = newNode;
         }
-
-        size++;
+        this.size++;
     }
 
+    //tira o elemento no final da fila
     public E pop(){
         if (isEmpty()) {
+            System.out.println("tem nada aqui");
             throw new RuntimeException();
+        } else {
+            E elementRemoved = top.getElement();
+            if (top.getPrevious() == null) {
+                top = null;
+            } else {
+                top = top.getPrevious();
+                top.setNext(null);
+            }
+            this.size--;
+            return elementRemoved;
         }
-
-        E elementRemoved = top.getElement();
-        top = top.getPrevious();
-        size--;
-        return elementRemoved;
     }
 
-
-    public Node top(){
-        return top;
+    public E top(){
+        if (isEmpty()) {
+            System.out.println("ta vazio :(");
+            throw new RuntimeException();
+        }
+        return (E) top.getElement();
     }
 
     public boolean isEmpty(){
@@ -56,34 +64,52 @@ public class Stack<E> {
     }
 
     public int size(){
-        Node n = top;
-        int contador = 0;
-        while (n != null){
-            contador += 1;
-            n = n.getPrevious();
-        }
-        size = contador;
-
-        return contador;
+//        Node<E> n = top;
+//        int contador = 0;
+//        while (n != null){
+//            contador += 1;
+//            n = n.getPrevious();
+//        }
+//        size = contador;
+//
+//        return contador;
+        return this.size;
     }
 
     public void clear(E e){
-        top = null;
+        while (top != null){
+            pop();
+        }
     }
 
-//    public Node[] toArray(){
-//        return toArray;
-//    }
-//
-//    public String toString(){
-//        return toString;
-    //    Arrays.toString(elements);
-//    }
+    //precisa inverter a ordem
+    public E[] toArray(){
+        E[] array = (E[]) new Object[size];
+        Node<E> n = top;
+        int index = 0;
+
+        while (n != null) {
+            array[index] =  n.getElement();
+            index += 1;
+            n = n.getPrevious();
+        }
+
+        E[] invertedArray = (E[]) new Object[size];
+
+        for (int i =0; i < size; i++){
+            invertedArray[i] = array[size - 1 -i];
+        }
+
+        return invertedArray;
+    }
+
+    public String toString(){
+        E[] e = this.toArray();
+        String toString = Arrays.toString(e);
+        return toString;
+    }
 
 
     //last in first out
-    //push
-
-    //pop
 
 }
