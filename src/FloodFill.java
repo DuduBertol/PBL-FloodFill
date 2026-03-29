@@ -8,25 +8,25 @@ import java.io.IOException;
 
 
 public class FloodFill {
-    private final Point inicio;
-    private BufferedImage foto;
+    private final Point startPoint;
+    private BufferedImage image;
     private final Stack<Point> stack;
     private final Queue<Point> queue;
     private ImagePanel panel;
 
     public FloodFill(BufferedImage image, ImagePanel panel, int x, int y) {
-        this.foto = image;
-        if (this.foto == null){
+        this.image = image;
+        if (this.image == null){
             throw new IllegalArgumentException("tem nada aqui >:(");
         }
 
         this.panel = panel;
-        inicio = new Point(x, y);
+        startPoint = new Point(x, y);
         stack = new Stack<>();
         queue = new Queue<>();
     }
 
-    private boolean isColorSimilar(int color1, int color2, int tolerance) {
+    private boolean isColorDifferent(int color1, int color2, int tolerance) {
         int r1 = (color1 >> 16) & 0xFF;
         int g1 = (color1 >> 8) & 0xFF;
         int b1 = color1 & 0xFF;
@@ -44,27 +44,28 @@ public class FloodFill {
 
     public void stackFill() throws InterruptedException {
         int newColor = 0xFF00FF00;
-        int oldColor = foto.getRGB(inicio.x, inicio.y);
+        int oldColor = image.getRGB(startPoint.x, startPoint.y);
 
-        int n = foto.getHeight();
-        int m = foto.getWidth();
+        int height = image.getHeight();
+        int width = image.getWidth();
 
         if (oldColor == newColor) {
             return;
         }
 
-        stack.push(inicio);
+        stack.push(startPoint);
 
         while (!stack.isEmpty()){
             Point point = stack.pop();
             int x = point.x;
             int y = point.y;
 
-            if (x < 0 || x >= m || y < 0 || y >= n || isColorSimilar(foto.getRGB(x, y), oldColor, 30)) {
+            //se ele bater na borda da tela ou achar uma cor diferente do fundo(borda do desenho)
+            if (x < 0 || x >= width || y < 0 || y >= height || isColorDifferent(image.getRGB(x, y), oldColor, 30)) {
                 continue;
             }
 
-            foto.setRGB(x, y, newColor);
+            image.setRGB(x, y, newColor);
             panel.repaint();
             Thread.sleep(1);
 
@@ -76,7 +77,7 @@ public class FloodFill {
         }
 
         try {
-            ImageIO.write(foto, "png", new File("assets/output.png"));
+            ImageIO.write(image, "png", new File("assets/output.png"));
         } catch (IOException e) {
             e.fillInStackTrace();
         }
@@ -84,27 +85,27 @@ public class FloodFill {
 
     public void queueFill() throws InterruptedException {
         int newColor = 0xFF00FF00;
-        int oldColor = foto.getRGB(inicio.x, inicio.y);
+        int oldColor = image.getRGB(startPoint.x, startPoint.y);
 
-        int n = foto.getHeight();
-        int m = foto.getWidth();
+        int height = image.getHeight();
+        int width = image.getWidth();
 
         if (oldColor == newColor) {
             return;
         }
 
-        queue.enqueue(inicio);
+        queue.enqueue(startPoint);
 
         while (!queue.isEmpty()){
             Point point = queue.dequeue();
             int x = point.x;
             int y = point.y;
 
-            if (x < 0 || x >= m || y < 0 || y >= n || isColorSimilar(foto.getRGB(x, y), oldColor, 30)) {
+            if (x < 0 || x >= width || y < 0 || y >= height || isColorDifferent(image.getRGB(x, y), oldColor, 30)) {
                 continue;
             }
 
-            foto.setRGB(x, y, newColor);
+            image.setRGB(x, y, newColor);
             panel.repaint();
             Thread.sleep(1);
 
@@ -115,7 +116,7 @@ public class FloodFill {
         }
 
         try {
-            ImageIO.write(foto, "png", new File("assets/output.png"));
+            ImageIO.write(image, "png", new File("assets/output.png"));
         } catch (IOException e) {
             e.fillInStackTrace();
         }
