@@ -17,7 +17,7 @@ public class FloodFill {
     public FloodFill(BufferedImage image, ImagePanel panel, int x, int y) {
         this.foto = image;
         if (this.foto == null){
-            throw new IllegalArgumentException("Image is null!");
+            throw new IllegalArgumentException("tem nada aqui >:(");
         }
 
         this.panel = panel;
