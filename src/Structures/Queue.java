@@ -19,7 +19,6 @@ public class Queue<E> {
         size = 0;
     }
 
-    //coloca o elemento no fim da fila
     public void enqueue(E element) {
         Node<E> node = new Node<>(element);
 
@@ -35,7 +34,6 @@ public class Queue<E> {
         }
     }
 
-    //tira o elemento do comeco da fila
     public E dequeue(){
         if (isEmpty()){
             System.out.println("Queue is empty");
@@ -70,7 +68,6 @@ public class Queue<E> {
         first = null;
     }
 
-    //nao precisa inverter a ordem
     public E[] toArray() {
         E[] array = (E[]) new Object[size];
         Node<E> n = top;

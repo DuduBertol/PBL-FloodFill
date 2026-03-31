@@ -60,7 +60,6 @@ public class FloodFill {
             int x = point.x;
             int y = point.y;
 
-            //se ele bater na borda da tela ou achar uma cor diferente do fundo(borda do desenho)
             if (x < 0 || x >= width || y < 0 || y >= height || isColorDifferent(image.getRGB(x, y), oldColor, 30)) {
                 continue;
             }
@@ -69,7 +68,6 @@ public class FloodFill {
             panel.repaint();
             Thread.sleep(1);
 
-            // 4 pixels adjacentes
             stack.push(new Point(x + 1, y));
             stack.push(new Point(x-1, y));
             stack.push(new Point(x, y+1));

@@ -12,11 +12,6 @@ public class Stack<E> {
         this.size = 0;
     }
 
-    //adiciona ao fim da pilha
-    //referenciar o previous
-    //colocar o next
-
-    //coloca o elemento no final da fila
     public void push(E newElement){
         Node<E> newNode = new Node<>(newElement);
         if (isEmpty()){
@@ -29,7 +24,6 @@ public class Stack<E> {
         this.size++;
     }
 
-    //tira o elemento no final da fila
     public E pop(){
         if (isEmpty()) {
             System.out.println("tem nada aqui");
@@ -64,15 +58,6 @@ public class Stack<E> {
     }
 
     public int size(){
-//        Node<E> n = top;
-//        int contador = 0;
-//        while (n != null){
-//            contador += 1;
-//            n = n.getPrevious();
-//        }
-//        size = contador;
-//
-//        return contador;
         return this.size;
     }
 
@@ -82,7 +67,6 @@ public class Stack<E> {
         }
     }
 
-    //precisa inverter a ordem
     public E[] toArray(){
         E[] array = (E[]) new Object[size];
         Node<E> n = top;
@@ -108,8 +92,4 @@ public class Stack<E> {
         String toString = Arrays.toString(e);
         return toString;
     }
-
-
-    //last in first out
-
 }

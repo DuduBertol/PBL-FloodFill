@@ -6,7 +6,6 @@ public class MyArrayList<T>{
     private Object[] elements;
     private int size = 0;
 
-    ///INITIALIZERS
     public MyArrayList() {
         this.elements = new Object[10];
     }
@@ -15,12 +14,11 @@ public class MyArrayList<T>{
         this.elements = new Object[capacity];
     }
 
-    ///PUBLIC FUNCTIONS
     public void add(T element) {
         checkIfNeedResize();
 
-        elements[size] = element; //armazena no último lugar
-        size++; //aumenta o length (que é o index do último elemento)
+        elements[size] = element;
+        size++;
     }
 
     public void add(int index, T element) {
@@ -28,8 +26,8 @@ public class MyArrayList<T>{
         checkIfNeedResize();
 
         if (elements[index] != null) {
-            for (int i = size - 1; i >= index; i--) { //i do size de trás pra frente
-                elements[i + 1] = elements[i];//vamos jogar todos os elementos pra direita 1
+            for (int i = size - 1; i >= index; i--) {
+                elements[i + 1] = elements[i];
             }
         }
         elements[index] = element;
@@ -55,8 +53,8 @@ public class MyArrayList<T>{
         checkIfIndexOutOfBounds(index);
 
         elements[index] = null;
-        for (int i = index; i < size - 1; i++) { //i recebe index pq é onde removeu
-            elements[i] = elements[i + 1];//vamos jogar todos os elementos pra esquerda
+        for (int i = index; i < size - 1; i++) {
+            elements[i] = elements[i + 1];
         }
         elements[size - 1] = null;
         size--;
@@ -88,7 +86,6 @@ public class MyArrayList<T>{
         return Arrays.toString(elements);
     }
 
-    ///PRIVATE FUNCTIONS
 
     private void checkIfNeedResize() {
         if (size == elements.length) {
